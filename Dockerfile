@@ -1,10 +1,9 @@
-FROM eclipse-temurin:17.0.5_8-jre-focal as builder
+FROM eclipse-temurin:21.0.2_13-jre-jammy as builder
 WORKDIR extracted
 ADD ./target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-
-FROM eclipse-temurin:17.0.5_8-jre-focal
+FROM eclipse-temurin:21.0.2_13-jre-jammy
 WORKDIR application
 COPY --from=builder extracted/dependencies/ ./
 COPY --from=builder extracted/spring-boot-loader/ ./
